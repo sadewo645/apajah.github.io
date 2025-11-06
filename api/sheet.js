@@ -1,11 +1,12 @@
 export default async function handler(req, res) {
   const { sheet = 'Perkebunan' } = req.query;
-  const url = `https://script.google.com/macros/s/AKfycbyZVUuOh3_WWXeLYP5Q9-pBkaFy-DAstfjKuZglh2y6QJHzkGE4_Ro4d_sRKCC69YGw/exec?sheet=${encodeURIComponent(sheet)}`;
+  const url = `https://script.google.com/macros/s/AKfycbwsrP2Flssz1YEA5jV0aW9BvvWnIMKfh1xuLuZkiqw/exec?sheet=${encodeURIComponent(sheet)}`;
 
   try {
     const response = await fetch(url);
     const data = await response.json();
 
+    // Tambahkan header CORS dari server kamu sendiri (Vercel)
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
