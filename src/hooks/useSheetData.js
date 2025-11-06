@@ -10,7 +10,7 @@ export function useSheetData(sheetName) {
     try {
       setLoading(true)
       const res = await fetch(
-        `https://script.google.com/macros/s/AKfycbyn4GXYrq_w09znHv7XUwFgWh2dwWfHjDczNUCljf7px5EN0HkX-_--oQ36JKM3dsOb/exec?sheet=${sheetName}`,
+        `https://script.google.com/macros/s/AKfycbyZVUuOh3_WWXeLYP5Q9-pBkaFy-DAstfjKuZglh2y6QJHzkGE4_Ro4d_sRKCC69YGw/exec?sheet=${sheetName}`,
         { mode: 'cors' }
       )
       if (!res.ok) {
