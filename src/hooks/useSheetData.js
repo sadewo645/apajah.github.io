@@ -9,7 +9,10 @@ export function useSheetData(sheetName) {
   const fetchData = useCallback(async () => {
     try {
       setLoading(true)
-      const res = await fetch(`/api/sheet?sheet=${sheetName}`);
+      const res = await fetch(
+  `https://script.google.com/macros/s/AKfycbwsrP2Flssz1YEA5jV0aW9BvvWnIMKfh1xuLuZkiqw/exec?sheet=${sheetName}`,
+  { mode: 'cors' }
+);
       if (!res.ok) {
         throw new Error('Gagal mengambil data Google Sheet')
       }
