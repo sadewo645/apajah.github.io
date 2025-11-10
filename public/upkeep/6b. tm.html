@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Budidaya Perkebunan</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Optional small favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><circle cx=%2212%22 cy=%2212%22 r=%2210%22 fill=%22%2336b37e%22/></svg>">
+</head>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title></title>
+        <link href="/css/styles.css" rel="stylesheet" />
+       <link href="/mainmapping/styles.css" rel="stylesheet" />
+       <!-- <link href="/css/fix-scroll.css" rel="stylesheet" />-->
+        <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
+    </head>
+    <!-- jQuery (dibutuhkan Bootstrap 4) -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<!-- Bootstrap Bundle (sudah termasuk Popper.js) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Script bawaan SB Admin -->
+<script src="/js/scripts.js"></script>
+
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark gradient-navbar">
+            <a class="navbar-brand d-flex align-items-center" href="/index.html">
+    <img src="/assets/img/LOGO HUT KADIN 57 PUTIH.png" alt="Logo" width="30" height="30" class="mr-2">
+    Budidaya Kelapa Sawit
+</a>
+
+            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ml-auto ml-md-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="#">Activity Log</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/login.html">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Dashboard</div>
+                            <a class="nav-link" href="/index.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Monitoring Hasil
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Panduan</div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Panduan Budidaya
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="index.html">Budidaya Kelapa Sawit</a>
+                                    <a class="nav-link" href="#">Norma HK</a>
+                                    <a class="nav-link" href="#">Cohst Production</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                Pages
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                        Authentication
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="/login.html">Login</a>
+                                            <a class="nav-link" href="/register.html">Register</a>
+                                            <a class="nav-link" href="/password.html">Forgot Password</a>
+                                        </nav>
+                                    </div>
+                                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                        Error
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="401.html">401 Page</a>
+                                            <a class="nav-link" href="404.html">404 Page</a>
+                                            <a class="nav-link" href="500.html">500 Page</a>
+                                        </nav>
+                                    </div>
+                                </nav>
+                            </div>
+                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <a class="nav-link" href="/charts.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Charts
+                            </a>
+                            <a class="nav-link" href="/tables.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Tables
+                            </a>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        Start Bootstrap
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <h3 class="mt-4"></h3>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Panduan Budidaya</li>
+                        </ol>
+<div class="scroll-buttons-wrapper">
+  <div class="scroll-buttons">
+    <a href="/mainmapping/faktor penentu produktivitas/index0.html">
+    <button>Faktor Penentu Produktivitas</button>
+    </a>
+    <a href="/mainmapping/1. pembibtan/Pembibitan_index.html">
+    <button>1. Pembibitan</button>
+    </a>
+    <a href="/mainmapping/2. Land Preparation/land_preparation_index.html">
+    <button>2. Land Preparation</button>
+    </a>
+    <a href="/mainmapping/3. Penanaman KS/Penanaman_KS_index.html">
+    <button>3. Penanaman Kelapa Sawit</button>
+    </a>
+    <a href="/mainmapping/4. Upkeep TBM/Upkeep_TBM_index.html">
+    <button>4. Upkeep TBM</button>
+    </a>
+    <a href="/mainmapping/5. Upkeep TM/Upkeep_TM_index.html">
+    <button>5. Upkeep TM</button>
+    </a>
+    <a href="/mainmapping/6. Panen, Angkut, Olah/Panen_index.html">
+    <button>6. Panen, Angkut, Olah</button>
+    </a>
+    <a href="/mainmapping/7. Administrasi/administrasi_index.html">
+    <button>7. Administrasi</button>
+    </a>
+  </div>
+</div>
+<body>
+  <div class="app">
+    <!-- MAIN -->
+    <main class="main">
+      <!-- Topbar (progress + optional actions) -->
+      <header class="topbar">
+        <div class="top-left">
+          <h1 class="page-title"><svg class="rocket" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="#36B37E" d="M12 2L15 8l6 3-6 3-3 6-3-6L3 11l6-3 3-6z"/></svg> welcome to webagriculture</h1>
+          <p class="subtitle">Come on, learn all the oil palm cultivation modules.</p>
+        </div>
+
+        <div class="top-right">
+          <div class="onboard-progress" title="Onboarding progress">
+            <div class="progress-label">Onboarding</div>
+            <div class="progress-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80">
+              <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+            </div>
+            <div class="progress-percent" id="progressPercent">0%</div>
+          </div>
+        </div>
+      </header>
+
+<div class="content">
+  <div class="explain-box">
+    <h2 class="explain-title">Usia Tanaman menghasilkan</h2>
+
+    <div class="explain-content">
+      <div class="explain-text">
+  <div class="perawatan-list">
+    <p>
+      Dalam perkebunan kelapa sawit, <b>TM usia</b> atau <b>Tanaman Menghasilkan</b> berdasarkan usia merujuk pada tingkatan umur tanaman kelapa sawit yang sudah mulai berproduksi atau menghasilkan <b>Tandan Buah Segar (TBS)</b>.
+      Pengetahuan mengenai usia TM sangat penting karena produktivitas dan manajemen pemeliharaannya berbeda pada setiap tahapan umur.
+    </p>
+    <p>Berikut penjelasannya secara lebih detail :</p>
+  </div>
+
+  <div class="perawatan-list">
+    <h2> 1. Pengertian TM (Tanaman Menghasilkan)</h2>
+    <p>
+      TM adalah fase di mana tanaman kelapa sawit telah mencapai umur produktif, yaitu ketika tanaman mulai menghasilkan buah yang dapat dipanen secara komersial.
+      Umumnya, fase TM dimulai ketika tanaman berumur sekitar <b>3 tahun setelah tanam (3–25 tahun)</b>,
+      tergantung pada jenis varietas, teknik budidaya, dan kondisi lingkungan.
+    </p>
+  </div>
+
+  <div class="perawatan-list">
+    <h2> 2. Klasifikasi Usia TM</h2>
+    <p>Usia TM biasanya dibagi menjadi beberapa kategori untuk memudahkan manajemen kebun:</p>
+
+    <table>
+      <tr>
+        <th>Kategori TM</th>
+        <th>Rentang Umur Tanaman</th>
+        <th>Karakteristik Utama</th>
+      </tr>
+      <tr>
+        <td>TM Muda</td>
+        <td>3–8 tahun</td>
+        <td>Pertumbuhan vegetatif masih aktif, produksi mulai meningkat dari tahun ke tahun.</td>
+      </tr>
+      <tr>
+        <td>TM Dewasa</td>
+        <td>9–18 tahun</td>
+        <td>Produksi mencapai puncak (yield tertinggi), tanaman stabil, perawatan difokuskan pada pemeliharaan produksi.</td>
+      </tr>
+      <tr>
+        <td>TM Tua</td>
+        <td>19–25 tahun</td>
+        <td>Produksi mulai menurun, batang semakin tinggi sehingga panen menjadi lebih sulit dan berisiko.</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="perawatan-list">
+    <h2> 3. Hubungan Usia TM dengan Produktivitas</h2>
+    <p>Produktivitas kelapa sawit sangat dipengaruhi oleh usia tanaman:</p>
+    <ul>
+      <li><b>TM muda (3–8 tahun):</b> produksi TBS masih meningkat seiring perkembangan tajuk dan pembentukan bunga betina.</li>
+      <li><b>TM dewasa (9–18 tahun):</b> produksi mencapai puncak, umumnya 25–30 ton TBS/ha/tahun tergantung kondisi kebun.</li>
+      <li><b>TM tua (19 tahun ke atas):</b> produksi menurun karena penurunan efisiensi fotosintesis dan kesulitan pemeliharaan.</li>
+    </ul>
+  </div>
+
+  <div class="perawatan-list">
+    <h2> 4. Pentingnya Pengelolaan Berdasarkan Usia TM</h2>
+    <ul>
+      <li>Menentukan strategi pemupukan (TM muda butuh nutrisi tinggi untuk pertumbuhan, TM tua lebih fokus pada pemeliharaan hasil).</li>
+      <li>Menentukan frekuensi panen dan tenaga kerja sesuai dengan potensi hasil.</li>
+      <li>Sebagai acuan dalam perencanaan <em>replanting</em> (peremajaan) ketika produktivitas sudah turun di bawah batas ekonomis (biasanya di bawah 15 ton TBS/ha/tahun).</li>
+    </ul>
+
+    <div class="highlight">
+      <b> Contoh:</b><br>
+      TM usia 5 tahun → ±18 ton TBS/ha/tahun.<br>
+      TM usia 12 tahun → ±28 ton TBS/ha/tahun (puncak).<br>
+      TM usia 22 tahun → ±16 ton TBS/ha/tahun karena tanaman terlalu tinggi dan efisiensi fotosintesis menurun.
+    </div>
+  </div>
+<style>
+.explain-content {
+  display: flex !important;
+  flex-direction: column !important; /* vertikal: teks di atas, gambar di bawah */
+  align-items: center !important;
+  gap: 20px !important;
+}
+
+.explain-text,
+.explain-image {
+  width: 100% !important;
+  max-width: 800px;
+}
+  
+    /* === Gaya Khusus List Ringkas === */
+    .perawatan-list {
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 20px 24px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      font-family: 'Inter', 'Roboto', sans-serif;
+      line-height: 1.35; /* jarak antar baris rapat */
+      font-size: 15px;
+      color: #333;
+    }
+
+    .perawatan-list h2 {
+      font-size: 1.4rem;
+      color: #0d6efd;
+      margin-bottom: 12px;
+      border-left: 5px solid #0d6efd;
+      padding-left: 10px;
+    }
+
+    .perawatan-list ul {
+      list-style-type: disc;
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    .perawatan-list li {
+      margin-bottom: 6px; /* jarak antar poin kecil */
+    }
+
+    /* Responsif */
+    @media (max-width: 600px) {
+      .perawatan-list {
+        padding: 16px;
+        font-size: 14px;
+      }
+      .perawatan-list h2 {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+      </div>
+    </div>
+  </div>
+      <footer class="footer">
+        <small class="muted">© <span id="year"></span> webagricultur — Built with jamro sadewo</small>
+      </footer>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
