@@ -1,150 +1,110 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
+import { Link } from 'react-router-dom'
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts'
 import { useSheetData } from '../hooks/useSheetData'
-import { DataCard } from '../components/DataCard'
-import { ChartCard } from '../components/ChartCard'
-import { DataTable } from '../components/DataTable'
-import { detectColumns, buildChartData, summarize } from '../utils/data'
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  CartesianGrid,
-  Legend,
-  LabelList,
-} from 'recharts'
+import { TrendingUp, Factory, Building2, Leaf, RefreshCw } from 'lucide-react'
 
-const sheets = [
-  { key: 'perkebunan', name: 'Perkebunan', sheet: 'Perkebunan' },
-  { key: 'pabrik', name: 'Pabrik', sheet: 'Pabrik' },
-  { key: 'perusahaan', name: 'Perusahaan', sheet: 'Perusahaan' },
-]
+export default function DashboardPage() {
+  const { rows: kebun } = useSheetData('Perkebunan')
+  const { rows: pabrik } = useSheetData('Pabrik')
+  const { rows: perusahaan } = useSheetData('Perusahaan')
 
-export function DashboardPage() {
-  const dataMap = sheets.reduce((acc, item) => {
-    acc[item.key] = useSheetData(item.sheet)
-    return acc
-  }, {})
+  // Hitung ringkasan data untuk insight singkat
+  const summary = useMemo(() => {
+    if (!kebun.length || !perusahaan.length) return {}
+    const avgHasil = kebun.reduce((a, b) => a + Number(b['Hasil Panen (ton)'] || 0), 0) / kebun.length
+    const avgCPO = perusahaan.reduce((a, b) => a + Number(b['Produksi CPO (ton)'] || 0), 0) / perusahaan.length
+    const avgFFA = perusahaan.reduce((a, b) => a + Number(b['FFA (%)'] || 0), 0) / perusahaan.length
+    return { avgHasil, avgCPO, avgFFA }
+  }, [kebun, perusahaan])
 
-  const perkebunanData = dataMap.perkebunan.rows
-  const hasError = sheets.some((item) => dataMap[item.key].error)
-  const { categoryKey, numericKeys } = useMemo(() => detectColumns(perkebunanData), [perkebunanData])
-  const primaryValueKey = numericKeys[0]
-
+  // Data gabungan untuk chart utama
   const chartData = useMemo(() => {
-    if (!categoryKey || !primaryValueKey) return []
-    return buildChartData(perkebunanData, categoryKey, primaryValueKey)
-  }, [perkebunanData, categoryKey, primaryValueKey])
+    if (!kebun.length || !perusahaan.length) return []
+    return kebun.map((k, i) => ({
+      bulan: k['Bulan'],
+      hasil: Number(k['Hasil Panen (ton)']),
+      cpo: Number(perusahaan[i]?.['Produksi CPO (ton)'] || 0),
+      ffa: Number(perusahaan[i]?.['FFA (%)'] || 0)
+    }))
+  }, [kebun, perusahaan])
 
   return (
-    <div className="space-y-10">
-      <header>
-        <p className="text-sm uppercase tracking-[0.3em] text-white/60">Dashboard Utama</p>
-        <h1 className="mt-3 text-3xl font-semibold text-white">Monitoring PKS & Kebun</h1>
-        <p className="mt-2 max-w-3xl text-sm text-white/60">
-          Ringkasan singkat performa dari seluruh rantai usaha. Data bersumber dari Google Sheet dan
-          diperbarui secara berkala untuk memudahkan pengambilan keputusan cepat.
-        </p>
+    <div className="space-y-8 p-6 text-white">
+      {/* Header */}
+      <header className="text-center space-y-2">
+        <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
+          🌴 Dashboard Monitoring & Analisis Produksi Sawit
+        </h1>
+        <p className="text-slate-400">Integrasi data Perkebunan, Pabrik, dan Perusahaan dalam satu tampilan.</p>
       </header>
 
-      {hasError ? (
-        <div className="rounded-2xl border border-red-500/40 bg-red-500/10 p-4 text-sm text-red-200 shadow-lg">
-          Sebagian data tidak dapat dimuat. Silakan cek koneksi ke Google Sheet dan coba lagi.
-        </div>
-      ) : null}
-
-      <div className="grid gap-6 md:grid-cols-3">
-        {sheets.map((item) => {
-          const { rows, loading } = dataMap[item.key]
-          const { numericKeys: sheetNumeric } = detectColumns(rows)
-          const total = summarize(rows, sheetNumeric)
-          return (
-            <DataCard
-              key={item.key}
-              title={`Total ${item.name}`}
-              value={loading ? 'Memuat…' : total.toLocaleString('id-ID')}
-              description={`Akumulasi seluruh indikator numerik pada sheet ${item.name}.`}
-              accent="from-primary via-sky-500 to-secondary"
-            />
-          )
-        })}
+      {/* Statistik ringkas */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <StatCard icon={<Leaf />} title="Rata-rata Hasil Panen" value={summary.avgHasil?.toFixed(1)} unit="ton" color="from-green-400 to-emerald-600" />
+        <StatCard icon={<Factory />} title="Rata-rata Produksi CPO" value={summary.avgCPO?.toFixed(1)} unit="ton" color="from-yellow-400 to-orange-500" />
+        <StatCard icon={<Building2 />} title="Rata-rata FFA" value={summary.avgFFA?.toFixed(2)} unit="%" color="from-pink-500 to-fuchsia-600" />
       </div>
 
-      <ChartCard
-        title="Tren Produksi Perkebunan"
-        subtitle={
-          primaryValueKey
-            ? `Grafik berdasarkan kolom ${primaryValueKey} pada sheet Perkebunan.`
-            : 'Tidak ada kolom numerik yang dapat divisualisasikan.'
-        }
-        actions={<DashboardStatus dataMap={dataMap} />}
-      >
-        {primaryValueKey ? (
-          <div className="h-80 min-w-[32rem]">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={chartData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stopColor="#2563eb" />
-                    <stop offset="100%" stopColor="#a21caf" />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
-                <XAxis dataKey="label" stroke="#94a3b8" tick={{ fill: '#94a3b8', fontSize: 12 }} />
-                <YAxis stroke="#94a3b8" tick={{ fill: '#94a3b8', fontSize: 12 }} />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: '#0f172a',
-                    borderRadius: '12px',
-                    border: '1px solid rgba(148, 163, 184, 0.2)',
-                    color: '#f8fafc',
-                  }}
-                />
-                <Legend wrapperStyle={{ color: '#e2e8f0' }} />
-                <Line type="monotone" dataKey="value" stroke="url(#lineGradient)" strokeWidth={3}>
-                  <LabelList
-                    dataKey="value"
-                    position="top"
-                    style={{ fill: '#e2e8f0', fontSize: 12, textShadow: '0 1px 6px rgba(15, 23, 42, 0.6)' }}
-                  />
-                </Line>
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
+      {/* Grafik utama gabungan */}
+      <section className="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold">Perbandingan Hasil Panen & Produksi CPO</h2>
+          <button onClick={() => window.location.reload()} className="flex items-center gap-2 text-slate-300 hover:text-white">
+            <RefreshCw size={18} /> Muat Ulang
+          </button>
+        </div>
+        <div className="h-80">
+          <ResponsiveContainer width="100%" height="100%">
+            <ComposedChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+              <XAxis dataKey="bulan" stroke="#94a3b8" />
+              <YAxis stroke="#94a3b8" />
+              <Tooltip contentStyle={{ background: '#0f172a', color: '#e2e8f0' }} />
+              <Legend />
+              <Bar dataKey="hasil" fill="#8b5cf6" name="Hasil Panen (ton)" radius={[6, 6, 0, 0]} />
+              <Line type="monotone" dataKey="cpo" stroke="#f472b6" name="Produksi CPO (ton)" strokeWidth={2} />
+              <Line type="monotone" dataKey="ffa" stroke="#22d3ee" name="FFA (%)" strokeWidth={2} />
+            </ComposedChart>
+          </ResponsiveContainer>
+        </div>
+      </section>
+
+      {/* Insight otomatis */}
+      <section className="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <h2 className="text-lg font-semibold mb-2">🧠 Insight Otomatis</h2>
+        {summary.avgFFA < 3 ? (
+          <p className="text-green-400">Kualitas CPO tergolong baik dengan FFA di bawah ambang batas. Produksi stabil dan efisien.</p>
         ) : (
-          <p className="text-sm text-white/60">Tidak ada data numerik yang dapat ditampilkan.</p>
+          <p className="text-yellow-400">Perlu perhatian pada kualitas CPO. Nilai FFA di atas normal bisa mempengaruhi hasil akhir.</p>
         )}
-      </ChartCard>
+      </section>
 
-      <ChartCard title="Sampel Data Perkebunan" subtitle="Lima baris pertama untuk pengecekan cepat.">
-        <DashboardTablePreview rows={perkebunanData} />
-      </ChartCard>
+      {/* Navigasi ke halaman detail */}
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <PageLink title="Perkebunan" desc="Pantau hasil panen dan kondisi lapangan." link="/perkebunan" icon={<Leaf />} />
+        <PageLink title="Pabrik" desc="Analisis proses produksi dan kualitas limbah." link="/pabrik" icon={<Factory />} />
+        <PageLink title="Perusahaan" desc="Lihat performa produksi CPO dan kualitas akhir." link="/perusahaan" icon={<Building2 />} />
+      </section>
     </div>
   )
 }
 
-function DashboardStatus({ dataMap }) {
-  return (
-    <div className="flex flex-wrap items-center gap-3 text-xs text-white/70">
-      {Object.entries(dataMap).map(([key, value]) => (
-        <span key={key} className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1">
-          <span className="h-2 w-2 rounded-full bg-emerald-400" />
-          {value.loading ? 'Memuat…' : `${value.rows.length} baris`}
-        </span>
-      ))}
+// 🔹 Komponen kecil
+const StatCard = ({ icon, title, value, unit, color }) => (
+  <div className={`rounded-2xl p-4 bg-gradient-to-br ${color} text-center`}>
+    <div className="flex justify-center mb-2">{icon}</div>
+    <h4 className="text-sm opacity-90">{title}</h4>
+    <p className="text-2xl font-bold">{value || '--'} <span className="text-sm">{unit}</span></p>
+  </div>
+)
+
+const PageLink = ({ title, desc, link, icon }) => (
+  <Link to={link} className="group bg-white/5 border border-white/10 rounded-2xl p-4 hover:bg-white/10 transition-all">
+    <div className="flex items-center gap-2 mb-2 text-pink-400 group-hover:text-white">
+      {icon}
+      <h3 className="text-lg font-semibold">{title}</h3>
     </div>
-  )
-}
-
-function DashboardTablePreview({ rows }) {
-  if (!rows.length) {
-    return <p className="text-sm text-white/60">Data belum tersedia.</p>
-  }
-
-  const columns = Object.keys(rows[0])
-  const previewRows = rows.slice(0, 5)
-
-  return <DataTable columns={columns} rows={previewRows} />
-}
+    <p className="text-slate-400 text-sm">{desc}</p>
+  </Link>
+)
