@@ -4,7 +4,7 @@ import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, R
 import { useSheetData } from '../hooks/useSheetData'
 import { TrendingUp, Factory, Building2, Leaf, RefreshCw } from 'lucide-react'
 
-export default function DashboardPage() {
+export function DashboardPage() {
   const { rows: kebun } = useSheetData('Perkebunan')
   const { rows: pabrik } = useSheetData('Pabrik')
   const { rows: perusahaan } = useSheetData('Perusahaan')
