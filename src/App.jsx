@@ -3,6 +3,7 @@ import { AppLayout } from './components/AppLayout'
 import { DashboardPage } from './pages/Dashboard'
 import { PerkebunanPage } from './pages/Perkebunan'
 import { PabrikPage } from './pages/Pabrik'
+import { PerusahaanPage } from './pages/Perusahaan'
 import Perkebunan from './pages/Perkebunan'
 import { PanduanPage } from './pages/Panduan'
 
