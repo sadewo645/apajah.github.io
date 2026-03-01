@@ -3,3 +3,8 @@
 
 # Ada Library Information
 *.ali
+
+# Prevent binary image uploads in this repo
+assets/images/*.png
+assets/images/*.jpg
+assets/images/*.jpeg
