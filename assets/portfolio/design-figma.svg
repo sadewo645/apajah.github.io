@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600">
+  <defs><linearGradient id="gf" x1="0" x2="1"><stop stop-color="#f43f5e"/><stop offset="1" stop-color="#fb7185"/></linearGradient></defs>
+  <rect width="960" height="600" fill="#090b16"/>
+  <rect x="120" y="90" width="720" height="420" rx="24" fill="#111827" stroke="#374151"/>
+  <rect x="160" y="140" width="220" height="320" rx="14" fill="#1f2937"/>
+  <rect x="420" y="140" width="380" height="140" rx="14" fill="url(#gf)"/>
+  <rect x="420" y="300" width="180" height="160" rx="14" fill="#1f2937"/>
+  <rect x="620" y="300" width="180" height="160" rx="14" fill="#1f2937"/>
+  <text x="420" y="190" fill="white" font-family="Inter,Arial" font-size="30">Smart Farm UI - Figma</text>
+</svg>

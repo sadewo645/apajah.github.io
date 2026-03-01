@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1"><stop stop-color="#0ea5e9"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+  </defs>
+  <rect width="960" height="600" fill="#0b1023"/>
+  <rect x="80" y="120" width="800" height="360" rx="24" fill="#121a35" stroke="#334155"/>
+  <rect x="150" y="200" width="260" height="160" rx="16" fill="url(#g1)"/>
+  <circle cx="280" cy="280" r="44" fill="#0b1023"/>
+  <rect x="470" y="190" width="300" height="30" rx="8" fill="#1e293b"/>
+  <rect x="470" y="250" width="220" height="30" rx="8" fill="#1e293b"/>
+  <rect x="470" y="310" width="180" height="30" rx="8" fill="#1e293b"/>
+  <text x="480" y="420" fill="#93c5fd" font-family="Inter,Arial" font-size="40">Hydroponic IoT Automation</text>
+</svg>
