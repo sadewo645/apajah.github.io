@@ -3,11 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jamro Sadewo | Portfolio</title>
-    <meta
-      name="description"
-      content="Jamro Sadewo portfolio - Agricultural Engineering student focused on IoT automation, CAD design, and visual communication."
-    />
+    <title>CST SCADA Monitoring</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,159 +11,102 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" defer></script>
+    <script src="app.js" defer></script>
   </head>
   <body>
-    <div class="aurora-bg" aria-hidden="true"></div>
-
-    <button id="sidebarToggle" class="sidebar-toggle" aria-label="Open or close sidebar">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-        <path d="M4 7h16M4 12h16M4 17h16" />
-      </svg>
-    </button>
-
-    <div id="layout" class="layout sidebar-open">
-      <aside id="sidebar" class="sidebar" aria-label="Sidebar navigation">
-        <div class="profile-card reveal">
-          <!-- TODO: Gambar akan ditambahkan di sini setelah file diupload ke GitHub -->
-          <div class="image-placeholder profile-image-placeholder" aria-hidden="true">Profile Image Placeholder</div>
-          <h1>Jamro Sadewo</h1>
-          <p>Agricultural Engineering · IoT & Automation</p>
-
-          <div class="socials">
-            <a href="#" aria-label="LinkedIn" title="LinkedIn">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 10v7M7 7h.01M12 10v7m0-4a3 3 0 0 1 6 0v4" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
-            </a>
-            <a href="#" aria-label="Instagram" title="Instagram">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg>
-            </a>
-            <a href="mailto:jamrosadewo@gmail.com" aria-label="Email" title="Email">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
-            </a>
-          </div>
+    <div class="dashboard">
+      <header class="topbar panel">
+        <div>
+          <p class="kicker">SCADA INTERFACE</p>
+          <h1>CST SCADA Monitoring</h1>
         </div>
+        <div class="connection-pill" id="connectionPill">
+          <span class="dot"></span>
+          <span id="connectionText">Connecting...</span>
+        </div>
+      </header>
 
-        <nav class="menu">
-          <a href="#hero" class="active"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10.5V20h14v-9.5"/></svg></span><span class="label">Home</span></a>
-          <a href="#about"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></svg></span><span class="label">About</span></a>
-          <a href="#skills"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19h16"/><path d="M7 15v-3M12 15V7M17 15v-6"/></svg></span><span class="label">Skills</span></a>
-          <a href="#resume"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3h8l4 4v14H7z"/><path d="M15 3v5h5"/></svg></span><span class="label">Resume</span></a>
-          <a href="#portfolio"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 15 5-5 4 4 3-3 6 6"/></svg></span><span class="label">Portfolio</span></a>
-          <a href="#services"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 6V3M12 21v-3M6 12H3M21 12h-3M17.66 6.34l2.12-2.12M4.22 19.78l2.12-2.12M17.66 17.66l2.12 2.12M4.22 4.22l2.12 2.12"/><circle cx="12" cy="12" r="3"/></svg></span><span class="label">Services</span></a>
-          <a href="#contact"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg></span><span class="label">Contact</span></a>
-        </nav>
-      </aside>
+      <section class="main-grid">
+        <article class="panel tank-panel">
+          <h2>Crude Separation Tank (CST)</h2>
+          <svg id="cstSvg" viewBox="0 0 360 470" aria-label="CST fluid levels">
+            <defs>
+              <clipPath id="tankClip">
+                <path d="M110,70 h140 a22,22 0 0 1 22,22 v245 l-24,78 h-136 l-24,-78 v-245 a22,22 0 0 1 22,-22 z" />
+              </clipPath>
+            </defs>
 
-      <main class="content">
-        <section id="hero" class="section hero reveal">
-          <div>
-            <p class="eyebrow">Professional Portfolio</p>
-            <h2>Hello, I'm <span class="gradient">Jamro Sadewo</span></h2>
-            <p>
-              Agricultural Engineering student passionate about smart farming, IoT automation systems,
-              and sustainable innovation for modern agriculture.
-            </p>
-            <div class="cta-row">
-              <a class="btn" href="#portfolio">View Projects</a>
-              <a class="btn btn-ghost" href="#contact">Contact Me</a>
-            </div>
+            <g class="scale-lines">
+              <line x1="55" y1="92" x2="98" y2="92" />
+              <line x1="65" y1="145" x2="98" y2="145" />
+              <line x1="65" y1="198" x2="98" y2="198" />
+              <line x1="65" y1="251" x2="98" y2="251" />
+              <line x1="65" y1="304" x2="98" y2="304" />
+              <line x1="65" y1="357" x2="98" y2="357" />
+              <line x1="55" y1="410" x2="98" y2="410" />
+              <text x="20" y="96">6 m</text>
+              <text x="28" y="149">5 m</text>
+              <text x="28" y="202">4 m</text>
+              <text x="28" y="255">3 m</text>
+              <text x="28" y="308">2 m</text>
+              <text x="28" y="361">1 m</text>
+              <text x="28" y="414">0 m</text>
+            </g>
+
+            <g clip-path="url(#tankClip)">
+              <rect id="sludgeLayer" class="layer sludge" x="88" y="410" width="184" height="0" />
+              <rect id="waterLayer" class="layer water" x="88" y="410" width="184" height="0" />
+              <rect id="oilLayer" class="layer oil" x="88" y="410" width="184" height="0" />
+            </g>
+
+            <path
+              class="tank-outline"
+              d="M110,70 h140 a22,22 0 0 1 22,22 v245 l-24,78 h-136 l-24,-78 v-245 a22,22 0 0 1 22,-22 z"
+            />
+            <ellipse class="tank-top" cx="180" cy="70" rx="70" ry="14" />
+
+            <text id="oilLabel" class="layer-label" x="150" y="390">OIL</text>
+            <text id="waterLabel" class="layer-label" x="142" y="408">WATER</text>
+            <text id="sludgeLabel" class="layer-label" x="134" y="426">SLUDGE</text>
+          </svg>
+        </article>
+
+        <article class="panel kpi-panel">
+          <h2>Live Process Data</h2>
+          <div class="kpi-grid">
+            <div class="kpi"><p>Oil Level</p><h3 id="oilLevel">0.00 m</h3></div>
+            <div class="kpi"><p>Water Level</p><h3 id="waterLevel">0.00 m</h3></div>
+            <div class="kpi"><p>Sludge Level</p><h3 id="sludgeLevel">0.00 m</h3></div>
+
+            <div class="kpi"><p>Oil Volume</p><h3 id="oilVolume">0.00 m³</h3></div>
+            <div class="kpi"><p>Water Volume</p><h3 id="waterVolume">0.00 m³</h3></div>
+            <div class="kpi"><p>Sludge Volume</p><h3 id="sludgeVolume">0.00 m³</h3></div>
+
+            <div class="kpi kpi-xl"><p>Total Volume</p><h3 id="totalVolume">0.00 m³</h3></div>
+            <div class="kpi kpi-xl"><p>Pressure</p><h3 id="pressure">0.00 bar</h3></div>
+            <div class="kpi kpi-xl"><p>Temperature</p><h3 id="temperature">0.00 °C</h3></div>
           </div>
-          <div class="hero-photo-wrap">
-            <!-- TODO: Gambar akan ditambahkan di sini setelah file diupload ke GitHub -->
-            <div class="image-placeholder hero-image-placeholder" aria-hidden="true">Hero Image Placeholder</div>
-          </div>
-        </section>
 
-        <section id="about" class="section card reveal">
-          <h3>About</h3>
-          <p>
-            I am an Agricultural Engineering student with strong interest in smart farming technologies,
-            IoT-based automation systems, and sustainable agricultural innovation. I have experience
-            building automated hydroponic systems using ESP32 with pH and TDS control.
-          </p>
-          <div class="grid-2">
-            <ul>
-              <li><strong>Location:</strong> Yogyakarta, Indonesia</li>
-              <li><strong>Email:</strong> jamrosadewo@gmail.com</li>
-              <li><strong>Phone:</strong> +62 838-3799-4316</li>
-            </ul>
-            <ul>
-              <li><strong>Age:</strong> 20</li>
-              <li><strong>Degree:</strong> Intermediate</li>
-              <li><strong>Availability:</strong> Freelance Available</li>
-            </ul>
+          <div class="alarm-row">
+            <div class="alarm" id="tempAlarm"><span class="lamp"></span><span>Temp Alarm</span></div>
+            <div class="alarm" id="pressureAlarm"><span class="lamp"></span><span>Pressure Alarm</span></div>
+            <div class="alarm" id="oilAlarm"><span class="lamp"></span><span>Oil Level Alarm</span></div>
           </div>
-        </section>
+          <p class="timestamp">Last update: <span id="lastTimestamp">-</span></p>
+        </article>
+      </section>
 
-        <section id="skills" class="section card reveal">
-          <h3>Skills</h3>
-          <p class="subtitle">My current technical and creative skill levels.</p>
-          <div class="skills">
-            <div><span>HTML/CSS</span><div class="bar"><i style="width:60%"></i></div></div>
-            <div><span>SolidWorks</span><div class="bar"><i style="width:75%"></i></div></div>
-            <div><span>Figma</span><div class="bar"><i style="width:80%"></i></div></div>
-            <div><span>Photography & Videography</span><div class="bar"><i style="width:70%"></i></div></div>
-            <div><span>Photoshop</span><div class="bar"><i style="width:55%"></i></div></div>
-            <div><span>ESP32 / Arduino</span><div class="bar"><i style="width:78%"></i></div></div>
-          </div>
-        </section>
-
-        <section id="resume" class="section card reveal">
-          <h3>Resume</h3>
-          <div class="timeline">
-            <article>
-              <h4>Bachelor of Agricultural Engineering</h4>
-              <p>2023 - Present · GPA 3.75/4.00 · Full Scholarship Awardee (BPDPKS).</p>
-            </article>
-            <article>
-              <h4>Autonomous Fertilizer Spreader Design Project</h4>
-              <p>2025 - Present · Mechanical layout, workflow design, and system integration strategy.</p>
-            </article>
-            <article>
-              <h4>Minister of Communication and Information — INSTIPER</h4>
-              <p>2025 - 2026 · Digital content strategy, visual communication, and branding consistency.</p>
-            </article>
-          </div>
-        </section>
-
-        <section id="portfolio" class="section card reveal">
-          <h3>Portfolio (Clickable Images)</h3>
-          <div class="portfolio-grid">
-            <a href="#" class="portfolio-item" aria-label="Hydroponic Automation IoT placeholder">
-              <!-- TODO: Gambar akan ditambahkan di sini setelah file diupload ke GitHub -->
-              <div class="image-placeholder portfolio-image-placeholder" aria-hidden="true">Project Image Placeholder</div>
-              <span>Hydroponic Automation IoT</span>
-            </a>
-            <a href="#" class="portfolio-item" aria-label="Autonomous Fertilizer Spreader placeholder">
-              <!-- TODO: Gambar akan ditambahkan di sini setelah file diupload ke GitHub -->
-              <div class="image-placeholder portfolio-image-placeholder" aria-hidden="true">Project Image Placeholder</div>
-              <span>Autonomous Fertilizer Spreader</span>
-            </a>
-            <a href="#" class="portfolio-item" aria-label="Smart Farm Dashboard UI Concept placeholder">
-              <!-- TODO: Gambar akan ditambahkan di sini setelah file diupload ke GitHub -->
-              <div class="image-placeholder portfolio-image-placeholder" aria-hidden="true">Project Image Placeholder</div>
-              <span>Smart Farm Dashboard UI Concept</span>
-            </a>
-          </div>
-        </section>
-
-        <section id="services" class="section card reveal">
-          <h3>Services</h3>
-          <div class="services-grid">
-            <article><h4>IoT Prototype</h4><p>Development of monitoring/control prototypes using ESP32 and sensors.</p></article>
-            <article><h4>CAD Design</h4><p>Mechanical design and modeling for agricultural engineering components.</p></article>
-            <article><h4>Visual Design</h4><p>Digital content design for social media, posters, and communication media.</p></article>
-          </div>
-        </section>
-
-        <section id="contact" class="section card reveal">
-          <h3>Contact</h3>
-          <p>Open for collaborations in IoT, agricultural automation, and visual communication projects.</p>
-          <a class="btn" href="mailto:jamrosadewo@gmail.com">Send Email</a>
-        </section>
-      </main>
+      <section class="chart-grid">
+        <article class="panel">
+          <h2>Temperature Trend</h2>
+          <canvas id="tempChart"></canvas>
+        </article>
+        <article class="panel">
+          <h2>Oil Volume Trend</h2>
+          <canvas id="oilChart"></canvas>
+        </article>
+      </section>
     </div>
-
-    <div id="overlay" class="overlay" aria-hidden="true"></div>
-    <script src="script.js"></script>
   </body>
 </html>
